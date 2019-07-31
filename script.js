@@ -1,4 +1,11 @@
-"use strict";
+class Contact {
+  constructor(name, email, phone, relation) {
+    this.name = name;
+    this.email = email;
+    this.phone = phone;
+    this.relation = relation;
+  }
+}
 
 class AddressBook {
   constructor() {
@@ -8,35 +15,43 @@ class AddressBook {
     this.name = name;
     this.contacts.push((this.name = new Contact(name, email, phone, relation)));
   }
-  delete(name) {
-    var index = this.contacts.findIndex(contact => {
-      return this.contacts.name === name;
-    });
-    if (index >= 0) {
-      this.contacts.splice(index, 1);
-    }
-  }
-  print() {
-    // for (let i = 0; i < this.contacts.length; i++) {
-    //   console.log(this.contacts[i]);
-    this.contacts.forEach(contact => {
-      console.log(contact);
+  display() {
+    document.querySelector(".info_container").innerHTML = "";
+    addressBook.contacts.forEach((contact, index) => {
+      const div = document.createElement("div");
+      div.innerHTML = `<p>Name: ${contact.name}</p> <p>Email ${
+        contact.email
+      }</p> <p>Phone: ${contact.phone}</p> <p>Relation: ${contact.relation}</p>
+      <i class="fas fa-trash-alt" index=${index}></i> `;
+      document.querySelector(".info_container").append(div);
     });
   }
-}
-
-class Contact {
-  constructor(name, email, phone, relation) {
-    this.name = name;
-    this.email = email;
-    this.phone = phone;
-    this.relation = relation;
+  delete(i) {
+    this.contacts.splice(i, 1);
+    addressBook.display();
   }
 }
 const addressBook = new AddressBook();
-addressBook.add("Kevin", "kpbalboa@gmail.com", "5172823794", "me");
-addressBook.add("Karen", "kbalboa", "137289878327", "mom");
-addressBook.add("Jay", "jdhuei", "32433224332", "father");
-addressBook.print();
-addressBook.delete("Karen");
-addressBook.print();
+function handleSubmit(event) {
+  event.preventDefault();
+  let name = event.target[0].value;
+  let email = event.target[1].value;
+  let phone = event.target[2].value;
+  let relation = event.target[3].value;
+  addressBook.add(name, email, phone, relation);
+  addressBook.display();
+}
+
+document.querySelector("form").addEventListener("submit", handleSubmit);
+
+function handleDelete(e) {
+  let otype = e.target.nodeName;
+  if (otype == "I") {
+    let i = e.target.getAttribute("index");
+    addressBook.delete(i);
+  }
+}
+
+document
+  .querySelector(".info_container")
+  .addEventListener("click", handleDelete);

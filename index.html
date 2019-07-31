@@ -5,8 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
+    <script src="https://kit.fontawesome.com/41393c8639.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="form">
+      <h1>My Contacts</h1>
+      <form>
+        <input type="text" placeholder="Name" class="input" id="name" />
+        <input type="text" placeholder="Email" class="input" id="email" />
+        <input type="text" placeholder="Phone" class="input" id="phone" />
+        <select name="relation" class="input" id="relation">
+          <option value="Family">Family</option>
+          <option value="friends">Friends</option>
+        </select>
+        <button class="input" id="add">Add</button>
+      </form>
+    </div>
+    <div class="info_container"></div>
     <script src="script.js"></script>
   </body>
 </html>
